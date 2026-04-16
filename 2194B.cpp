@@ -1,0 +1,48 @@
+#include <algorithm>
+#include <cmath>
+#include <iostream>
+#include <vector>
+#include <set>
+#include <map>
+#include <unordered_map>
+#include <unordered_set>
+#include <numeric>
+#include <deque>
+using namespace std;
+
+using ll = long long;
+
+void solve() {
+	ll n, x, y;
+	cin >> n >> x >> y;
+
+	vector<ll> a(n);
+	for (auto &x: a) cin >> x;
+
+	vector<pair<ll, ll>> b(n);
+	ll total = 0;
+	for (int i = 0; i < n; i++) {
+		b[i] = {a[i] / x, a[i] % x};
+		total += b[i].first * y;
+	}
+
+	ll res = 0;
+	for (int i = 0; i < n; i++) {
+		res = max(res, total - b[i].first * y + b[i].first * x + b[i].second);
+	}
+	cout << res << endl;
+}
+
+int main() {
+	ios_base::sync_with_stdio(false);
+	cin.tie(nullptr);
+
+	int testcases = 1;
+	cin >> testcases;
+
+	for (int tc = 1; tc <= testcases; tc++) {
+		solve();
+	}
+	return 0;
+}
+
