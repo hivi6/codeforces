@@ -8,12 +8,18 @@
 #include <unordered_set>
 #include <numeric>
 #include <deque>
-#include <queue>
 using namespace std;
 
 using ll = long long;
 
 void solve() {
+	ll n;
+	cin >> n;
+
+	for (ll i = 0; i < n; i++) {
+		cout << (i * 2 + 1) * (i * 2 + 3) << " ";
+	}
+	cout << endl;
 }
 
 int main() {

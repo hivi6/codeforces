@@ -14,6 +14,25 @@ using namespace std;
 using ll = long long;
 
 void solve() {
+	ll n;
+	cin >> n;
+
+	vector<ll> a(n), b(n);
+	for (auto &x: a) cin >> x;
+	for (auto &x: b) cin >> x;
+
+	map<ll, ll> pos;
+	for (int i = 0; i < n; i++) pos[a[i]] = i;
+
+	ll last = -1;
+	for (int i = 0; i < n; i++) {
+		if (last > pos[b[i]]) {
+			cout << "NO" << endl;
+			return;
+		}
+		last = pos[b[i]];
+	}
+	cout << "YES" << endl;
 }
 
 int main() {
