@@ -13,40 +13,40 @@ using namespace std;
 
 using ll = long long;
 
-ll is(multiset<ll> m, ll x) {
-	while (x >= 0) {
-		if (m.count(x)) {
-			m.erase(m.find(x));
-		}
-		else {
-			auto iter = m.lower_bound(2*x+1);
-			if (iter == m.end()) return false;
-			m.erase(iter);
-		}
-		x--;
-	}
-
-	return true;
-}
-
 void solve() {
 	ll n;
 	cin >> n;
 
-	vector<ll> a(n);
+	vector<ll> a(n), b(n), c(n);
 	for (auto &x: a) cin >> x;
+	for (auto &x: b) cin >> x;
+	for (auto &x: c) cin >> x;
 
-	ll left = 0, right = n;
-	multiset<ll> m(a.begin(), a.end());
-
-	ll res = 0;
-	while (left <= right) {
-		auto mid = left + (right - left + 1) / 2;
-
-		if (is(m, mid)) res = mid+1, left = mid + 1;
-		else right = mid - 1;
+	ll cnt1 = 0;
+	for (int i = 0; i < n; i++) {
+		ll temp = true;
+		for (int j = 0; j < n; j++) {
+			if (a[j] >= b[(i+j)%n]) {
+				temp = false;
+				break;
+			}
+		}
+		if (temp) cnt1++;
 	}
-	cout << res << endl;
+
+	ll cnt2 = 0;
+	for (int i = 0; i < n; i++) {
+		ll temp = true;
+		for (int j = 0; j < n; j++) {
+			if (b[j] >= c[(i+j)%n]) {
+				temp = false;
+				break;
+			}
+		}
+		if (temp) cnt2++;
+	}
+
+	cout << cnt1 * cnt2 * n << endl;
 }
 
 int main() {

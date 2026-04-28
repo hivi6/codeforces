@@ -13,22 +13,6 @@ using namespace std;
 
 using ll = long long;
 
-ll is(multiset<ll> m, ll x) {
-	while (x >= 0) {
-		if (m.count(x)) {
-			m.erase(m.find(x));
-		}
-		else {
-			auto iter = m.lower_bound(2*x+1);
-			if (iter == m.end()) return false;
-			m.erase(iter);
-		}
-		x--;
-	}
-
-	return true;
-}
-
 void solve() {
 	ll n;
 	cin >> n;
@@ -36,15 +20,21 @@ void solve() {
 	vector<ll> a(n);
 	for (auto &x: a) cin >> x;
 
-	ll left = 0, right = n;
-	multiset<ll> m(a.begin(), a.end());
+	auto right = accumulate(a.begin(), a.end(), 0ll);
+	ll neg = 0, pos = 0;
+	ll res = LLONG_MIN;
+	for (int i = 0; i < n; i++) {
+		ll temp = 0;
+		if (i == 0 || a[0] >= 0) temp = pos + neg;
+		else {
+			temp = pos + neg + 2 * a[0];
+		}
+		res = max(res, temp - (right - a[i]));
 
-	ll res = 0;
-	while (left <= right) {
-		auto mid = left + (right - left + 1) / 2;
+		if (a[i] < 0) neg += -a[i];
+		else pos += a[i];
 
-		if (is(m, mid)) res = mid+1, left = mid + 1;
-		else right = mid - 1;
+		right -= a[i];
 	}
 	cout << res << endl;
 }

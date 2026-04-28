@@ -30,6 +30,8 @@ ll is(multiset<ll> m, ll x) {
 }
 
 void solve() {
+	// UPSOLVED THIS PROBLEM: Was a binary search problem
+
 	ll n;
 	cin >> n;
 
