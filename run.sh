@@ -11,5 +11,5 @@ fi
 
 echo running: $FILE
 
-g++ --std=c++11 $FILE -o a.out && ./a.out
+g++ --std=c++17 $FILE -o a.out && ./a.out
 

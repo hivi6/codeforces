@@ -14,6 +14,19 @@ using namespace std;
 using ll = long long;
 
 void solve() {
+	ll n;
+	cin >> n;
+
+	vector<ll> b(n);
+	for (auto &x: b) cin >> x;
+
+	bool res = true;
+	ll leftMost = 0;
+	for (int i = n-1; i >= 0; i--) {
+		leftMost = max(leftMost, b[i]);
+		if (leftMost / b[i] > 1) res = false;
+	}
+	cout << (res ? "YES" : "NO") << endl;
 }
 
 int main() {
