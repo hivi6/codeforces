@@ -14,7 +14,33 @@ using namespace std;
 using ll = long long;
 
 void solve() {
+	ll n, k;
+	cin >> n >> k;
+
+	vector<vector<ll>> a(n, vector<ll>(3));
+	for (auto &x: a) cin >> x[0] >> x[1] >> x[2];
+
+	sort(a.begin(), a.end());
+
+	auto cmp = [](vector<ll> &x, vector<ll> &y) -> bool {
+		return x[2] >= y[2];
+	};
 	
+	priority_queue<vector<ll>, vector<vector<ll>>, decltype(cmp)> pq(cmp);
+	
+	ll cur = k;
+	ll i = 0;
+	while (true) {
+		while (i < n && cur >= a[i][0]) {
+			pq.push(a[i]);
+			i++;
+		}
+		while (pq.size() && pq.top()[1] < cur) pq.pop();
+		if (pq.empty()) break;
+		cur = max(cur, pq.top()[2]);
+		pq.pop();
+	}
+	cout << cur << endl;
 }
 
 int main() {
