@@ -33,16 +33,18 @@ void solve() {
 			if (a[i][j] == maxElem) {
 				b.push_back({i, j});
 				rows[i]++;
-				if (i != j) cols[j]++;
+				cols[j]++;
 			}
 		}
 	}
 
-	bool res = false;
+	ll res = false;
 	for (int i = 0; i < n; i++) {
 		for (int j = 0; j < m; j++) {
-			auto temp = rows[i] + cols[j];
-			if (temp == b.size()) res = true;
+			ll cnt = rows[i] + cols[j];
+			if (a[i][j] == maxElem) cnt--;
+
+			if (cnt == b.size()) res = true;
 		}
 	}
 	cout << (res ? maxElem - 1 : maxElem) << endl;
