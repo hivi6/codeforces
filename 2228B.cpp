@@ -14,21 +14,11 @@ using namespace std;
 using ll = long long;
 
 void solve() {
-	ll n;
-	cin >> n;
+	ll n, x1, x2, k;
+	cin >> n >> x1 >> x2 >> k;
 
-	vector<ll> a(n);
-	for (auto &x: a) cin >> x;
-
-	ll zero = 0, one = 0, two = 0;
-	for (auto x: a) {
-		if (x == 0) zero++;
-		if (x == 1) one++;
-		if (x == 2) two++;
-	}
-
-	ll minElem = min(one, two);
-	cout << (zero + minElem + (one - minElem) / 3 + (two - minElem) / 3) << endl;
+	ll d1 = (x1 - x2 + n) % n, d2 = (x2 - x1 + n) % n;
+	cout << (min(d1, d2) + k) << endl;
 }
 
 int main() {

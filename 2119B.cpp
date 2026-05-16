@@ -17,18 +17,27 @@ void solve() {
 	ll n;
 	cin >> n;
 
-	vector<ll> a(n);
+	ll px, py, qx, qy;
+	cin >> px >> py >> qx >> qy;
+
+	vector<double> a(n);
 	for (auto &x: a) cin >> x;
 
-	ll zero = 0, one = 0, two = 0;
-	for (auto x: a) {
-		if (x == 0) zero++;
-		if (x == 1) one++;
-		if (x == 2) two++;
-	}
+	ll xdiff = (px - qx), ydiff = (py - qy);
+	ll x2 = xdiff * xdiff, y2 = ydiff * ydiff;
+	ll d2 = x2 + y2;
+	double d = sqrt(d2 * 1.0);
+	a.push_back(d);
 
-	ll minElem = min(one, two);
-	cout << (zero + minElem + (one - minElem) / 3 + (two - minElem) / 3) << endl;
+	double sum = accumulate(a.begin(), a.end(), 0.0);
+	ll res = 1;
+	for (auto x: a) {
+		if (x > sum - x) {
+			res = 0;
+			break;
+		}
+	}
+	cout << (res ? "Yes" : "No") << endl;
 }
 
 int main() {

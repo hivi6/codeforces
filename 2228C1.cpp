@@ -13,22 +13,26 @@ using namespace std;
 
 using ll = long long;
 
-void solve() {
-	ll n;
-	cin >> n;
-
-	vector<ll> a(n);
-	for (auto &x: a) cin >> x;
-
-	ll zero = 0, one = 0, two = 0;
-	for (auto x: a) {
-		if (x == 0) zero++;
-		if (x == 1) one++;
-		if (x == 2) two++;
+ll dp(const ll &a, ll b, ll last, const vector<ll> &d) {
+	if (b > a || b == last) {
+		return abs(a - b);
 	}
+	
+	ll res = abs(a - b);
+	res = min(res, dp(a, b * 10 + d[0], b, d));
+	res = min(res, dp(a, b * 10 + d[1], b, d));
+	return res;
+}
 
-	ll minElem = min(one, two);
-	cout << (zero + minElem + (one - minElem) / 3 + (two - minElem) / 3) << endl;
+void solve() {
+	ll a, n;
+	cin >> a >> n;
+
+	vector<ll> d(n);
+	for (auto &x: d) cin >> x;
+
+	ll res = dp(a, 0, -1, d);
+	cout << res << endl;
 }
 
 int main() {
